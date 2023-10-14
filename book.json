@@ -1,49 +1,49 @@
 [
     {
-        "_id": 1,
+        "id_": 1,
         "name": "The Lost Chronicles",
         "isbn": "978-1234567890",
-        "_type": "Fiction",
+        "type_": "Fiction",
         "publish": "2023-01-15",
         "price": 60
     },
     {
-        "_id": 2,
+        "id_": 2,
         "name": "A Journey to Knowledge",
         "isbn": "978-0987654321",
-        "_type": "Fiction",
+        "type_": "Fiction",
         "publish": "2022-05-20",
         "price": 68
     },
     {
-        "_id": 3,
+        "id_": 3,
         "name": "Exploring the Cosmos",
         "isbn": "978-5555555555",
-        "_type": "Science",
+        "type_": "Science",
         "publish": "2021-11-10",
         "price": 30
     },
     {
-        "_id": 4,
+        "id_": 4,
         "name": "Realm of Legends",
         "isbn": "978-7777777777",
-        "_type": "Fantasy",
+        "type_": "Fantasy",
         "publish": "2023-03-25",
         "price": 90
     },
     {
-        "_id": 5,
+        "id_": 5,
         "name": "Secrets Unveiled",
         "isbn": "978-9999999999",
-        "_type": "Mystery",
+        "type_": "Mystery",
         "publish": "2022-08-12",
         "price": 39
     },
     {
-        "_id": 6,
+        "id_": 6,
         "name": "The Inspiring Lives",
         "isbn": "978-1111111111",
-        "_type": "Biography",
+        "type_": "Biography",
         "publish": "2020-04-05",
         "price": 56
     }

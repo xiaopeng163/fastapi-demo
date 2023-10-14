@@ -11,21 +11,21 @@ books = load_book()
 
 
 @app.get("/api/books")
-def get_books(_type: str | None = None, _id: int | None = None) -> list:
+def get_books(type_: str | None = None, id_: int | None = None) -> list:
     result = books
-    if _type:
-        result = [book for book in books if book["_type"] == _type]
-    if _id:
-        return [book for book in result if book["_id"] == _id]
+    if type_:
+        result = [book for book in books if book.type_ == type_]
+    if id_:
+        return [book for book in result if book.id_ == id_]
     return result
 
 
-@app.get("/api/books/{_id}")
-def get_book_by_id(_id: int) -> dict:
-    result = [book for book in books if book["_id"] == _id]
+@app.get("/api/books/{id_}")
+def get_book_by_id(id_: int) -> dict:
+    result = [book for book in books if book.id_ == id_]
     if result:
         return result[0]
-    raise HTTPException(status_code=404, detail=f"No book with _id={_id}")
+    raise HTTPException(status_code=404, detail=f"No book with _id={id_}")
 
 
 if __name__ == "__main__":
