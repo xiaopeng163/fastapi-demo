@@ -1,7 +1,7 @@
-from pydantic import BaseModel
+from sqlmodel import SQLModel, Field
 
 
-class BookInput(BaseModel):
+class BookInput(SQLModel):
     name: str
     isbn: str
     type_: str
@@ -18,6 +18,10 @@ class BookInput(BaseModel):
                 "price": 120,
             }
         }
+
+
+class Book(BookInput, table=True):
+    id_: int | None = Field(primary_key=True, default=None)
 
 
 class BookOutput(BookInput):
