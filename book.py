@@ -2,29 +2,17 @@ from fastapi import FastAPI
 from fastapi import HTTPException
 from fastapi import Depends
 import uvicorn
-from sqlmodel import create_engine, SQLModel, Session, select
+from sqlmodel import SQLModel, Session, select
 
-from db import load_book, save_book
-from schema import BookInput, BookOutput, Book
+from schema import BookInput, Book
+from db import engine, get_session
 
 app = FastAPI(title="Book API")
-
-
-books = load_book()
-
-engine = create_engine(
-    "sqlite:///book.db", connect_args={"check_same_thread": False}, echo=True
-)
 
 
 @app.on_event("startup")
 def on_startup():
     SQLModel.metadata.create_all(engine)
-
-
-def get_session():
-    with Session(engine) as session:
-        yield session
 
 
 @app.get("/api/books")

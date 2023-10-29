@@ -1,13 +1,10 @@
-import json
-from schema import BookOutput
+from sqlmodel import create_engine, Session
+
+engine = create_engine(
+    "sqlite:///book.db", connect_args={"check_same_thread": False}, echo=True
+)
 
 
-def load_book() -> list:
-    with open("book.json") as f:
-        books = json.load(f)
-        return [BookOutput(**book) for book in books]
-
-
-def save_book(books: list[BookOutput]):
-    with open("book.json", "w") as f:
-        json.dump([book.model_dump() for book in books], f, indent=4)
+def get_session():
+    with Session(engine) as session:
+        yield session
