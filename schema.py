@@ -24,12 +24,10 @@ class Book(BookInput, table=True):
     id_: int | None = Field(primary_key=True, default=None)
 
 
-if __name__ == "__main__":
-    book = BookOutput(
-        id_=10, name="test", isbn="1234", type_="test", publish="2023", price="30"
-    )
-    print(book)
-    print(book.model_dump())
-    print(book.model_dump_json())
-    print(book.isbn)
-    print(book.id_)
+class AuthorInput(SQLModel):
+    name: str
+    nationality: str
+
+
+class Author(AuthorInput, table=True):
+    id_: int | None = Field(primary_key=True, default=None)

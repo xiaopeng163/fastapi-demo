@@ -4,7 +4,7 @@ from fastapi import Depends
 import uvicorn
 from sqlmodel import SQLModel, Session, select
 
-from schema import BookInput, Book
+from schema import BookInput, Book, AuthorInput, Author
 from db import engine, get_session
 
 app = FastAPI(title="Book API")
@@ -72,6 +72,32 @@ def update_book(
         return book
     else:
         raise HTTPException(status_code=404, detail=f"No book with _id={id_}")
+
+
+@app.post("/api/authors")
+def add_author(author: AuthorInput, session: Session = Depends(get_session)) -> Author:
+    new_author = Author.from_orm(author)
+    session.add(new_author)
+    session.commit()
+    session.refresh(new_author)
+    return new_author
+
+
+@app.get("/api/authors")
+def get_authors(
+    session: Session = Depends(get_session),
+) -> list[Author]:
+    query = select(Author)
+    return session.exec(query).all()
+
+
+@app.get("/api/authors/{id_}")
+def get_author_by_id(id_: int, session: Session = Depends(get_session)) -> Author:
+    author = session.get(Author, id_)
+    if author:
+        return author
+    else:
+        raise HTTPException(status_code=404, detail=f"No author with _id={id_}")
 
 
 if __name__ == "__main__":
