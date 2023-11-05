@@ -32,15 +32,6 @@ def get_book_by_id(id_: int, session: Session = Depends(get_session)) -> Book:
         raise HTTPException(status_code=404, detail=f"No book with _id={id_}")
 
 
-@router.post("/")
-def add_book(book: BookInput, session: Session = Depends(get_session)) -> Book:
-    new_book = Book.from_orm(book)
-    session.add(new_book)
-    session.commit()
-    session.refresh(new_book)
-    return new_book
-
-
 @router.delete("/{id_}")
 def delete_book(id_: int, session: Session = Depends(get_session)):
     book = session.get(Book, id_)
