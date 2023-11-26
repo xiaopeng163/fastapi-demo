@@ -1,5 +1,8 @@
-from sqlmodel import SQLModel, Field
+from sqlmodel import SQLModel, Field, Column, VARCHAR
 
+from passlib.context import CryptContext
+
+pwd_context = CryptContext(schemes=["bcrypt"])
 
 class BookInput(SQLModel):
     name: str
@@ -31,3 +34,22 @@ class AuthorInput(SQLModel):
 
 class Author(AuthorInput, table=True):
     id_: int | None = Field(primary_key=True, default=None)
+
+
+class User(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    username: str = Field(sa_column=Column('username', VARCHAR, unique=True, index=True))
+    password_hash: str = ''
+
+    def set_password(self, password):
+        self.password_hash = pwd_context.hash(password)
+
+    def verify_password(self, password):
+        return pwd_context.verify(password, self.password_hash)
+
+
+class UserOutput(SQLModel):
+    id: int
+    username: str
+
+
