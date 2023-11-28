@@ -4,7 +4,8 @@ from fastapi import APIRouter
 from sqlmodel import Session, select
 
 from db import get_session
-from schema import BookInput, Book
+from schema import BookInput, Book, User
+from routers.auth import get_current_user
 
 router = APIRouter(prefix="/api/books")
 
@@ -14,6 +15,7 @@ def get_books(
     type_: str | None = None,
     id_: int | None = None,
     session: Session = Depends(get_session),
+    user: User = Depends(get_current_user)
 ) -> list[Book]:
     query = select(Book)
     if type_:
